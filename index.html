@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  </head>
+  <body>
+  	<script>
+
+			let cp = computerPlay();
+			console.log("rock, " + cp);
+			console.log(playRound("rock", cp));
+			cp = computerPlay();
+			console.log("rock, " + cp);
+			console.log(playRound("rock", cp));
+			cp = computerPlay();
+			console.log("rock, " + cp);
+			console.log(playRound("rock", cp));
+
+  		function computerPlay(){
+  			let randomPlay = Math.floor((Math.random() * 3) + 1);
+  			return (randomPlay === 1) ? "rock" : (randomPlay === 2) ? "paper" : "scissors";
+  		}
+  		
+  		function playRound(playerSelection, computerSelection){
+				playerSelection.toLowerCase();
+  			if ((playerSelection === "rock" && computerSelection === "scissors") ||
+					(playerSelection === "paper" && computerSelection === "rock") ||
+					(playerSelection === "scissors" && computerSelection === "paper")){
+						return "You win! " + playerSelection + " beats " + computerSelection;
+					}
+				else if (playerSelection === computerSelection){
+					return "It's a draw!";
+				}
+				else {
+					return "You lose! " + computerSelection + " beats " + playerSelection;
+				}	
+  		}
+  	</script>
+  </body>
+</html>
+
