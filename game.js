@@ -5,20 +5,42 @@ function computerPlay(){
   		
 function playRound(playerSelection, computerSelection){
 	playerSelection.toLowerCase();
+	let res = "";
   	if ((playerSelection === "rock" && computerSelection === "scissors") ||
 		(playerSelection === "paper" && computerSelection === "rock") ||
 		(playerSelection === "scissors" && computerSelection === "paper")){
-			console.log ("You win! " + playerSelection + " beats " + computerSelection);
+			let res = "<p>You win! " + playerSelection + " beats " + computerSelection + "</p>";
+			addResult(res);
 			return 1;
 	}
 	else if (playerSelection === computerSelection){
-		console.log ("It's a draw!");
+		let res = "<p>It's a draw!</p>";
+		addResult(res);
 		return 0;
 	}
 	else {
-		console.log ("You lose! " + computerSelection + " beats " + playerSelection);
+		let res ="<p>You lose! " + computerSelection + " beats " + playerSelection + "</p>;
+		addResult(res);
 		return -1;
 	}	
+}
+
+function addResult(result){
+	const results = document.querySelector('#results');
+	results.insertAdjacentHTML('afterbegin', result);
+}
+
+function updateScores (result, playerScore, computerScore){
+	switch (result){
+		case 1:
+			playerScore++;
+			break;
+		case 0:
+			break;
+		case -1:
+			computerScore++;
+			break;
+	}
 }
 
 const buttons = document.querySelectorAll('button');
