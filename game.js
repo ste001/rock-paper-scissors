@@ -30,6 +30,35 @@ function addResult(result){
 	results.insertAdjacentHTML('afterbegin', result);
 }
 
+function updateResults(e){
+	let roundResult = playRound(e.target.id, computerPlay());
+	switch (roundResult){
+		case 1:
+			playerScore++;
+			const ps = document.getElementById('player-score');
+			ps.textContent = playerScore;
+			break;
+		case 0:
+			break;
+		case -1:
+			computerScore++;
+			const cs = document.getElementById('computer-score');
+			cs.textContent = computerScore;
+			break;
+		default:
+			break;
+	}
+	if (playerScore >= MAX_WINS){
+		const msg = "<p style='color:green;'>You win the game!</p>";
+		addResult(msg);
+	}
+	
+	if (computerScore >= MAX_WINS){
+		const msg = "<p style='color:red;'>You lose the game!</p>";
+		addResult(msg);
+	}
+}
+
 let playerScore = 0;
 let computerScore = 0;
 const MAX_WINS = 5;
@@ -37,31 +66,5 @@ const MAX_WINS = 5;
 const buttons = document.querySelectorAll('button');
 
 buttons.forEach((button)=>{
-	button.addEventListener('click', e => {
-		let roundResult = playRound(e.target.id, computerPlay());
-		switch (roundResult){
-			case 1:
-				playerScore++;
-				const ps = document.getElementById('player-score');
-				ps.textContent = playerScore;
-				break;
-			case 0:
-				break;
-			case -1:
-				computerScore++;
-				const cs = document.getElementById('computer-score');
-				cs.textContent = computerScore;
-				break;
-			default:
-				break;
-		}
-		if (playerScore === MAX_WINS){
-			const msg = "<p style='color:green;'>You win the game!</p>";
-			addResult(msg);
-		}
-		if (computerScore === MAX_WINS){
-			const msg = "<p style='color:red;'>You lose the game!</p>";
-			addResult(msg);
-		}
-	});
+	button.addEventListener('click', updateResults);
 });
