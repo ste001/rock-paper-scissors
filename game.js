@@ -1,3 +1,17 @@
+
+let playerScore = 0;
+let computerScore = 0;
+const MAX_WINS = 5;
+const buttons = document.querySelectorAll('button');
+
+initEventListeners();
+
+function initEventListeners(){
+	buttons.forEach((button)=>{
+		button.addEventListener('click', updateResults);
+	});
+}
+
 function computerPlay(){
 	let randomPlay = Math.floor((Math.random() * 3) + 1);
   	return (randomPlay === 1) ? "rock" : (randomPlay === 2) ? "paper" : "scissors";
@@ -51,20 +65,19 @@ function updateResults(e){
 	if (playerScore >= MAX_WINS){
 		const msg = "<p style='color:green;'>You win the game!</p>";
 		addResult(msg);
+		endGame();
 	}
 	
 	if (computerScore >= MAX_WINS){
 		const msg = "<p style='color:red;'>You lose the game!</p>";
 		addResult(msg);
+		endGame();
 	}
 }
 
-let playerScore = 0;
-let computerScore = 0;
-const MAX_WINS = 5;
-
-const buttons = document.querySelectorAll('button');
-
-buttons.forEach((button)=>{
-	button.addEventListener('click', updateResults);
-});
+function endGame(){
+	buttons.forEach((button)=>{
+		button.removeEventListener('click', updateResults);
+		console.log("Removed");
+	});
+}
