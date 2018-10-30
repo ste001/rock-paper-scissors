@@ -55,11 +55,11 @@ buttons.forEach((button)=>{
 			default:
 				break;
 		}
-		if (playerScore === 5){
+		if (playerScore === MAX_WINS){
 			const msg = "<p style='color:green;'>You win the game!</p>";
 			addResult(msg);
 		}
-		if (computerScore === 5){
+		if (computerScore === MAX_WINS){
 			const msg = "<p style='color:red;'>You lose the game!</p>";
 			addResult(msg);
 		}
