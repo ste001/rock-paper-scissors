@@ -19,7 +19,7 @@ function playRound(playerSelection, computerSelection){
 		return 0;
 	}
 	else {
-		let res ="<p>You lose! " + computerSelection + " beats " + playerSelection + "</p>;
+		let res ="<p>You lose! " + computerSelection + " beats " + playerSelection + "</p>";
 		addResult(res);
 		return -1;
 	}	
@@ -30,23 +30,38 @@ function addResult(result){
 	results.insertAdjacentHTML('afterbegin', result);
 }
 
-function updateScores (result, playerScore, computerScore){
-	switch (result){
-		case 1:
-			playerScore++;
-			break;
-		case 0:
-			break;
-		case -1:
-			computerScore++;
-			break;
-	}
-}
+let playerScore = 0;
+let computerScore = 0;
+const MAX_WINS = 5;
 
 const buttons = document.querySelectorAll('button');
 
 buttons.forEach((button)=>{
-	button.addEventListener('click', (e) => {
-		playRound(e.target.id, computerPlay());
+	button.addEventListener('click', e => {
+		let roundResult = playRound(e.target.id, computerPlay());
+		switch (roundResult){
+			case 1:
+				playerScore++;
+				const ps = document.getElementById('player-score');
+				ps.textContent = playerScore;
+				break;
+			case 0:
+				break;
+			case -1:
+				computerScore++;
+				const cs = document.getElementById('computer-score');
+				cs.textContent = computerScore;
+				break;
+			default:
+				break;
+		}
+		if (playerScore === 5){
+			const msg = "<p style='color:green;'>You win the game!</p>";
+			addResult(msg);
+		}
+		if (computerScore === 5){
+			const msg = "<p style='color:red;'>You lose the game!</p>";
+			addResult(msg);
+		}
 	});
 });
